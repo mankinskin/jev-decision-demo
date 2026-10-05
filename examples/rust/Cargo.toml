@@ -1,8 +1,10 @@
 [package]
-name = "jev-demo-openrouter-rust"
+name = "jev-demo-rust"
 version = "0.1.0"
 edition = "2024"
+rust-version = "1.96"
 
 [dependencies]
-reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+jev-client = "0.2.0"
 serde_json = "1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }

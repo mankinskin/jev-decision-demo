@@ -44,11 +44,16 @@ $env:TYPESAFE_BASE_URL = "https://openrouter.ai/api"
 Remove-Item Env:TYPESAFE_API_KEY, Env:TYPESAFE_BASE_URL
 ```
 
-The Python example preserves Jev's typed choice, probabilities, and confidence. The TypeScript and Rust examples under `examples/` call OpenRouter's `/api/v1/chat/completions` endpoint directly; they are not Jev implementations. Both require `OPENROUTER_MODEL` explicitly and use the same credential CLI:
+The Python example preserves Jev's typed choice, probabilities, and confidence. The TypeScript example calls OpenRouter's `/api/v1/chat/completions` endpoint directly and requires `OPENROUTER_MODEL`. The Rust example uses `jev-client` to send a typed choice request to TypeSafe's Jev API; it is not an OpenRouter chat-completions example.
 
 ```sh
 OPENROUTER_API_KEY="$(openrouter-auth token)" OPENROUTER_MODEL="provider/model" node --experimental-strip-types examples/typescript/src/cli.ts
-OPENROUTER_API_KEY="$(openrouter-auth token)" OPENROUTER_MODEL="provider/model" cargo run --manifest-path examples/rust/Cargo.toml
+```
+
+The Rust example requires Rust 1.96 or newer and `TYPESAFE_API_KEY`. `TYPESAFE_BASE_URL` is optional and defaults to `https://api.typesafe.ai`. Set the TypeSafe key in the process environment without putting the raw value in shell history, source files, or Git, then run:
+
+```sh
+cargo run --manifest-path examples/rust/Cargo.toml
 ```
 
 These demo commands make live provider requests and may incur usage charges. Tests are offline and do not retrieve a credential or contact a provider. The examples do not create accounts, purchase credits, store credentials, or execute a decision as an action.
